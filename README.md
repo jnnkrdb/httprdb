@@ -1,4 +1,4 @@
-# httprdb
+# HttpRDB
 
 [![GitHub go.mod Go version of a Go module](https://img.shields.io/github/go-mod/go-version/jnnkrdb/httprdb)](https://github.com/jnnkrdb/httprdb)
 [![CodeFactor](https://www.codefactor.io/repository/github/jnnkrdb/httprdb/badge)](https://www.codefactor.io/repository/github/jnnkrdb/httprdb)
