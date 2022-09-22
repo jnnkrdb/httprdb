@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/jnnkrdb/jlog"
+	"github.com/jnnkrdb/corerdb/prtcl"
 )
 
 // -----------------------------------------------------------
@@ -21,7 +21,7 @@ import (
 //   - `routes` : []Route > the routes with their functions
 func CreateApiEndpoint(endpoint, debug string, routes []Route) Endpoint {
 
-	jlog.Log.Println("creating an api-endpoint on ", endpoint)
+	prtcl.Log.Println("creating an api-endpoint on ", endpoint)
 
 	ep := Endpoint{
 		Status: status{
@@ -37,7 +37,7 @@ func CreateApiEndpoint(endpoint, debug string, routes []Route) Endpoint {
 
 	corsc.AllowAllOrigins = true
 
-	gin.DefaultWriter = jlog.Log.Writer()
+	gin.DefaultWriter = prtcl.Log.Writer()
 
 	gin.SetMode(debug)
 

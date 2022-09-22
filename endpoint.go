@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jnnkrdb/jlog"
+	"github.com/jnnkrdb/corerdb/prtcl"
 )
 
 // struct, which contains the http-service, statusvalues
@@ -20,7 +20,7 @@ type Endpoint struct {
 // boot the api endpoint
 func (ep *Endpoint) Boot() {
 
-	jlog.Log.Println("starting api-endpoint:", ep.httpserver.Addr)
+	prtcl.Log.Println("starting api-endpoint:", ep.httpserver.Addr)
 
 	// enable default functions
 	ep.gin.Handle("GET", "/healthz", func(ctx *gin.Context) {
@@ -29,7 +29,7 @@ func (ep *Endpoint) Boot() {
 
 	ep.gin.Handle("GET", "/oof", func(ctx *gin.Context) {
 
-		jlog.Log.Println("Shutting down HTTP-Server")
+		prtcl.Log.Println("Shutting down HTTP-Server")
 
 		ep.Status.set(http.StatusServiceUnavailable, false, true)
 
@@ -41,7 +41,7 @@ func (ep *Endpoint) Boot() {
 
 		if err := ep.httpserver.Shutdown(cctx); err != nil {
 
-			jlog.PrintObject(ep, ctx, cctx, cancel, err)
+			prtcl.PrintObject(ep, ctx, cctx, cancel, err)
 		}
 	})
 
@@ -51,11 +51,11 @@ func (ep *Endpoint) Boot() {
 
 		if err != http.ErrServerClosed {
 
-			jlog.PrintObject(ep, err)
+			prtcl.PrintObject(ep, err)
 		}
 	}
 
 	ep.Status.set(http.StatusServiceUnavailable, false, false)
 
-	jlog.Log.Println("stopped api-endpoint:", ep.httpserver.Addr)
+	prtcl.Log.Println("stopped api-endpoint:", ep.httpserver.Addr)
 }
