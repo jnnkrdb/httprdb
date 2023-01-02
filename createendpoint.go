@@ -19,7 +19,7 @@ import (
 //   - `endpoint` : string > "[host]:[port]"
 //   - `debug` : string > "release"/"debug"
 //   - `routes` : []Route > the routes with their functions
-func CreateApiEndpoint(endpoint, debug string, routes []Route) Endpoint {
+func CreateApiEndpoint(endpoint, debug string, additionalHeaders []string, routes []Route) Endpoint {
 
 	prtcl.Log.Println("creating an api-endpoint on ", endpoint)
 
@@ -36,6 +36,16 @@ func CreateApiEndpoint(endpoint, debug string, routes []Route) Endpoint {
 	corsc := cors.DefaultConfig()
 
 	corsc.AllowAllOrigins = true
+
+	corsc.AllowBrowserExtensions = true
+
+	corsc.AllowCredentials = true
+
+	corsc.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"}
+
+	corsc.AllowWebSockets = true
+
+	corsc.AllowHeaders = additionalHeaders
 
 	gin.DefaultWriter = prtcl.Log.Writer()
 
